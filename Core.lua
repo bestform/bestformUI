@@ -11,11 +11,13 @@ local function Autosell(self, event, ...)
       itemID = GetContainerItemID(bag, slot)
       if itemID then
         count = select(2, GetContainerItemInfo(bag, slot))
-        _, link, rarity, _, _, _, _, _, _, _, price = GetItemInfo(itemID)
+        name, link, rarity, iLevel, _, class, _, _, equipSlot, _, price = GetItemInfo(itemID)
         if rarity == 0 then
           stack = (price or 0) * (count or 1)
           sold = sold + stack
           UseContainerItem(bag, slot)
+        elseif price > 0 then
+          print("You might want to sell " .. link .. " for " .. GetCoinTextureString(price))
         end
       end
     end
@@ -26,11 +28,17 @@ local function Autosell(self, event, ...)
     RepairAllItems()
     repaired = true
   end
-  print("Sold for: " .. GetCoinTextureString(sold))
+  if sold > 0 then
+    print("Sold for: " .. GetCoinTextureString(sold))
+  else
+    print("Did not sell anything")
+  end
   if repaired then
     print("Repaired for " .. GetCoinTextureString(repairCost))
-    print("Earned: " .. GetCoinTextureString(sold - repairCost))
+    print("Earned/Lost: " .. GetCoinTextureString(sold - repairCost))
   end
 end
+
+
 
 frame:SetScript("OnEvent", Autosell)

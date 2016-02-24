@@ -7,6 +7,7 @@ Currently implemented:
 
 * Autosell: Will automatically sell all grey items when visiting a vendor
 * Autorepair: Will automatically repair all items when visiting an appropriate vendor
+* Suggest sells: Will show suggestions to sell above grey quality items with the corresponding price - this won't be done automatically
 * Report: Will report earnings from said actions in the chat window
 
 Credits

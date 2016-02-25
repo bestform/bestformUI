@@ -40,5 +40,21 @@ local function Autosell(self, event, ...)
 end
 
 
+-- Slash commands
+
+SLASH_BUINET1 = "/buinet"
+
+local function ShowNetworkStats()
+  bandwidthIn, bandwidthOut, latencyHome, latencyWorld = GetNetStats()
+  print("bandwidthIn: " .. bandwidthIn)
+  print("bandwidthOut: " .. bandwidthOut)
+  print("latencyHome: " .. latencyHome)
+  print("latencyWorld: " .. latencyWorld)
+end
+
+function SlashCmdList.BUINET(msg, editbox)
+  ShowNetworkStats()
+end
+
 
 frame:SetScript("OnEvent", Autosell)

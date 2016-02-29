@@ -12,7 +12,7 @@ local function Autosell(self, event, ...)
       if itemID then
         count = select(2, GetContainerItemInfo(bag, slot))
         name, link, rarity, iLevel, _, class, _, _, equipSlot, _, price = GetItemInfo(itemID)
-        if rarity == 0 then
+        if rarity == 0 and price > 0 then
           stack = (price or 0) * (count or 1)
           sold = sold + stack
           UseContainerItem(bag, slot)

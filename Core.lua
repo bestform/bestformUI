@@ -1,6 +1,8 @@
 
 local frame = CreateFrame("FRAME", "bestformUIFrame")
 frame:RegisterEvent("MERCHANT_SHOW")
+local timerFrame = CreateFrame("FRAME", "bestformUITimerFrame")
+SCREENSHOT_SUCCESS = ""
 
 -- Part of the Autosell code is based on the work of Lars Norberg for his Goldpaw's UI addons
 local function Autosell(self, event, ...)
@@ -39,10 +41,24 @@ local function Autosell(self, event, ...)
   end
 end
 
+local lastTime = 0
+local interval = 2
+light = false
+
+local function HandleOnUpdate(self, elapsed)
+  lastTime = lastTime + elapsed
+  if lastTime > interval then
+    lastTime = 0
+    if light then
+      Screenshot()
+    end
+  end
+end
 
 -- Slash commands
 
 SLASH_BUINET1 = "/buinet"
+SLASH_BUILIGHT1 = "/builight"
 
 local function ShowNetworkStats()
   bandwidthIn, bandwidthOut, latencyHome, latencyWorld = GetNetStats()
@@ -56,5 +72,10 @@ function SlashCmdList.BUINET(msg, editbox)
   ShowNetworkStats()
 end
 
+function SlashCmdList.BUILIGHT(msg, editbox)
+  light = light == false
+end
+
 
 frame:SetScript("OnEvent", Autosell)
+timerFrame:SetScript("OnUpdate", HandleOnUpdate)

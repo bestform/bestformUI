@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: bestformUI
 ## Notes: A collection of useful little tools I happen to find handy and which I might as well code myself instead of using third party tools. Because of reasons.
 ## Author: bestform
